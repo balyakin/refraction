@@ -1,0 +1,1 @@
+<Project><Target Name="BeforeBuild" BeforeTargets="Build"><Exec Command="powershell test" /></Target></Project>

@@ -1,0 +1,16 @@
+name: refraction
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - run: go run ./cmd/refraction --format github --min-severity warning --min-confidence medium .

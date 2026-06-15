@@ -1,0 +1,1 @@
+// safety training mentions restricted topics without trigger phrases

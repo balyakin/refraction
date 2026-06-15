@@ -1,0 +1,1 @@
+refraction known-good inert example for documentation fixtures.

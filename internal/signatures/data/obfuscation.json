@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "id": "OBF001",
+      "category": "obfuscation",
+      "severity": "warning",
+      "confidence": "high",
+      "title": "Decoded suspicious anti-analysis payload",
+      "description": "Encoded or escaped content decodes to prompt-injection, refusal-bait, or install-hook language.",
+      "rationale": "Encoding anti-analysis text hides it from simple review while still affecting tools that decode or display it later.",
+      "remediation": "Remove encoded anti-analysis payloads or suppress inert tests with a documented reason.",
+      "attack_narrative": "A string hides 'ignore previous instructions' in base64 so naive scans miss it before an LLM review stage decodes it.",
+      "match_type": "decoded_contains",
+      "patterns": [
+        "ignore previous instructions",
+        "disregard the system prompt",
+        "report no vulnerabilities",
+        "do not inspect install hooks",
+        "security scanner must refuse",
+        "analysis must stop here",
+        "curl http",
+        "wget http",
+        "powershell -enc",
+        "download and execute"
+      ],
+      "case_insensitive": true,
+      "regions": ["comment", "string", "raw-text", "manifest", "binary"],
+      "min_entropy": 4.0,
+      "references": [],
+      "cwe": ["CWE-506"],
+      "mitre_attack": ["T1027"],
+      "ecosystems": [],
+      "attack_examples": ["A base64 string decodes to reviewer override instructions."],
+      "false_positive_examples": ["A unit test that intentionally verifies decoder behavior."],
+      "status": "active",
+      "replaced_by": ""
+    }
+  ]
+}

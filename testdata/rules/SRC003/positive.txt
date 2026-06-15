@@ -1,0 +1,1 @@
+let nuсlear = "mixed script identifier";

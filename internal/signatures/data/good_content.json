@@ -1,0 +1,21 @@
+{
+  "rules": [
+    {
+      "id": "GOOD001",
+      "title": "Known inert refraction fixture prose",
+      "description": "Allows explicitly marked inert examples in tests and documentation.",
+      "rationale": "Project tests need stable inert examples without becoming scanner findings.",
+      "remediation": "Keep this marker limited to fixtures and do not use it to hide live package behavior.",
+      "match_type": "literal",
+      "patterns": ["refraction known-good inert example"],
+      "case_insensitive": true,
+      "regions": ["comment", "string", "raw-text", "manifest"],
+      "references": [],
+      "ecosystems": [],
+      "attack_examples": [],
+      "false_positive_examples": ["A clean fixture documenting scanner behavior."],
+      "status": "active",
+      "replaced_by": ""
+    }
+  ]
+}

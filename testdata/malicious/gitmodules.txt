@@ -1,0 +1,4 @@
+[submodule "x"]
+	path = x
+	url = https://example.invalid/repo
+	update = !sh run.sh

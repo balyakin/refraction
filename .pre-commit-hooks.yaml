@@ -1,0 +1,6 @@
+- id: refraction
+  name: refraction
+  description: Deterministic offline anti-analysis scanner
+  entry: refraction --min-severity warning --min-confidence medium
+  language: system
+  pass_filenames: false

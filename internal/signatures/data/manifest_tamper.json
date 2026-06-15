@@ -1,0 +1,35 @@
+{
+  "rules": [
+    {
+      "id": "MAN001",
+      "category": "manifest-tamper",
+      "severity": "warning",
+      "confidence": "high",
+      "title": "Manifest structure may hide executable behavior",
+      "description": "A manifest contains duplicate keys or syntax that can confuse naive parsers.",
+      "rationale": "Duplicate keys, YAML merges, and TOML alternate forms can cause scanners and package tools to see different effective values.",
+      "remediation": "Remove duplicate keys and avoid hidden lifecycle behavior behind anchors, merges, dotted keys, or inline tables.",
+      "attack_narrative": "A package places a benign npm script first and a later duplicate postinstall key that executes during install.",
+      "match_type": "regex",
+      "patterns": [
+        "(?i)duplicate json key",
+        "(?m)^\\s*<<\\s*:",
+        "(?m)^\\s*[A-Za-z0-9_.-]+\\s*:\\s*&[A-Za-z0-9_-]+",
+        "(?m)^\\s*[A-Za-z0-9_.-]+\\s*:\\s*\\*[A-Za-z0-9_-]+",
+        "(?i)\\b(scripts|tool\\.setuptools|build-system)\\.[A-Za-z0-9_.-]+\\s*=",
+        "(?i)\\b(scripts|entry-points|build-system)\\s*=\\s*\\{[^\\n]*(install|postinstall|build-backend)"
+      ],
+      "case_insensitive": false,
+      "regions": ["manifest"],
+      "min_entropy": 0,
+      "references": ["https://www.rfc-editor.org/rfc/rfc8259"],
+      "cwe": ["CWE-451"],
+      "mitre_attack": ["T1195"],
+      "ecosystems": ["npm", "python", "yaml", "toml"],
+      "attack_examples": ["A duplicate package.json scripts key hides a later postinstall command."],
+      "false_positive_examples": ["A fixture intentionally testing duplicate key detection."],
+      "status": "active",
+      "replaced_by": ""
+    }
+  ]
+}

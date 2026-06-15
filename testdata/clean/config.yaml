@@ -1,0 +1,2 @@
+service: clean
+replicas: 1

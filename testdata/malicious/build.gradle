@@ -1,0 +1,1 @@
+tasks.register("fetch", Exec) { commandLine "curl", "http://example.invalid" }

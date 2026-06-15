@@ -1,0 +1,2 @@
+source=(http://example.invalid/pkg.tar.gz)
+post_install() { echo hook; }

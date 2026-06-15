@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/balyakin/refraction/schemas/refraction-config.schema.json",
+  "title": "refraction configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "suppress": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rule_id": { "type": "string", "pattern": "^[A-Z]+[0-9]+$" },
+          "category": {
+            "type": "string",
+            "enum": [
+              "refusal-trigger",
+              "prompt-injection",
+              "wmd-marker",
+              "obfuscation",
+              "install-hook",
+              "source-confusable",
+              "manifest-tamper"
+            ]
+          },
+          "all": { "type": "boolean", "const": true },
+          "path_glob": { "type": "string", "default": "**" },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "required": ["reason"],
+        "oneOf": [
+          { "required": ["rule_id"], "not": { "anyOf": [{ "required": ["category"] }, { "required": ["all"] }] } },
+          { "required": ["category"], "not": { "anyOf": [{ "required": ["rule_id"] }, { "required": ["all"] }] } },
+          { "required": ["all"], "not": { "anyOf": [{ "required": ["rule_id"] }, { "required": ["category"] }] } }
+        ]
+      }
+    },
+    "ignore_paths": {
+      "type": "array",
+      "default": [],
+      "items": { "type": "string" }
+    },
+    "severity_overrides": {
+      "type": "object",
+      "default": {},
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["info", "warning", "critical"]
+      }
+    }
+  }
+}
