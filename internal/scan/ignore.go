@@ -42,6 +42,9 @@ func (m IgnoreMatcher) Match(rel string, isDir bool) bool {
 
 func matchIgnore(pattern, rel string, isDir bool) bool {
 	pattern = filepath.ToSlash(pattern)
+	if strings.HasPrefix(pattern, "/") {
+		return matchRootIgnore(strings.TrimPrefix(pattern, "/"), rel, isDir)
+	}
 	if pattern == "" {
 		return false
 	}
@@ -77,6 +80,24 @@ func matchIgnore(pattern, rel string, isDir bool) bool {
 		return true
 	}
 	return isDir && strings.HasPrefix(rel, pattern+"/")
+}
+
+func matchRootIgnore(pattern, rel string, isDir bool) bool {
+	if pattern == "" {
+		return false
+	}
+	if strings.HasSuffix(pattern, "/**") {
+		prefix := strings.TrimSuffix(pattern, "/**")
+		return rel == prefix || strings.HasPrefix(rel, prefix+"/")
+	}
+	if strings.HasSuffix(pattern, "/") {
+		dir := strings.TrimSuffix(pattern, "/")
+		return (isDir && rel == dir) || strings.HasPrefix(rel, dir+"/")
+	}
+	if ok, _ := path.Match(pattern, rel); ok {
+		return true
+	}
+	return rel == pattern
 }
 
 func globMatch(pattern, rel string) bool {
