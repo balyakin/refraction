@@ -1,0 +1,10 @@
+/refraction
+/SPEC.md
+/bugs_*.md
+*_test.go
+README.ru.md
+docs/ADVERSARY.md
+docs/assets/refraction-screenshot.svg
+internal/signatures/data/
+testdata/malicious/
+testdata/rules/
